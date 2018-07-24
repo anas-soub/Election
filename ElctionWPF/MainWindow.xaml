@@ -1,0 +1,91 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ElctionWPF"
+        xmlns:ElectionDb="clr-namespace:ElectionDb;assembly=ElectionDb"
+        x:Class="ElctionWPF.MainWindow"
+        mc:Ignorable="d"
+         Name="window"
+        Title="MainWindow" Height="800" Width="1440" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="personViewSource" d:DesignSource="{d:DesignInstance {x:Type ElectionDb:Person}, CreateList=True}"/>
+
+    </Window.Resources>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="180"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="27,40,48,10" Grid.Row="0" Orientation="Horizontal" >
+            <TextBox  Text="{Binding SearchText, ElementName=window, Mode=OneWayToSource}" Width="150" Height="25"></TextBox>
+            <Button Content="Search" Margin="10,0,10,0" Width="50" Height="25" Click="Button_Click" ></Button>
+            <Grid x:Name="grid2" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Content="Gender:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                <!--<TextBox x:Name="genderTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding Gender, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>-->
+                <ComboBox ItemsSource="{Binding CurrentSearch.Gender,ElementName=window, Converter={ElectionDb:EnumToCollectionConverter}, Mode=OneTime}"
+                    SelectedValuePath="Value"
+                    DisplayMemberPath="Description"
+                     SelectedValue="{Binding  CurrentSearch.Gender, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                <Label Content="Governate:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+                <!--<TextBox x:Name="governateTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding Governate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>-->
+                <Label Content="Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+                <TextBox x:Name="nameTextBox1" Text="{Binding CurrentSearch.Name, UpdateSourceTrigger=PropertyChanged, ElementName=window }" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2"  VerticalAlignment="Center" Width="120" />
+                <Label Content="Order By Age:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+                <!--<CheckBox x:Name="orderByAgeCheckBox" Content="" Grid.Column="1" HorizontalAlignment="Left" IsChecked="{Binding OrderByAge, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>-->
+            </Grid>
+
+
+
+
+        </StackPanel>
+        <StackPanel DataContext="{StaticResource personViewSource}" Grid.Row="1" Orientation="Horizontal">
+            <Grid x:Name="grid1"  HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Image x:Name="imageImage" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="350" Margin="3" Grid.Row="1" Source="{Binding PersonDetails.Image}" VerticalAlignment="Center"/>
+                <Label Content="Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+                <Label x:Name="nameTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="35" Margin="3" Grid.Row="2" Content="{Binding PersonDetails.Name, Mode=OneWay}" VerticalAlignment="Center" Width="120"/>
+                <Label Content="Age:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                <Label x:Name="ageTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Content="{Binding PersonDetails.Age, Mode=OneWay}" VerticalAlignment="Center" Width="120"/>
+
+            </Grid>
+            <DataGrid x:Name="personDataGrid"  RowDetailsVisibilityMode="VisibleWhenSelected" Margin="10,10,10,10" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <!--<DataGridTemplateColumn x:Name="dateOfBirthColumn" Width="SizeToHeader" Header="date Of Birth">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker  SelectedDate="{Binding dateOfBirth, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+                    <DataGridTextColumn x:Name="nameColumn" Header="Name" Binding="{Binding Name}" CanUserResize="True" Width="Auto"/>
+                    <DataGridTextColumn x:Name="municipalNameColumn" Width="SizeToHeader"  Header="Municipal Name" Binding="{Binding MunicipalName}"/>
+                    <DataGridTextColumn x:Name="dateOfBirth" Width="SizeToHeader" Header="dateOfBirth"  Binding="{Binding dateOfBirth}"/>
+
+                    <DataGridTextColumn x:Name="nationalNumberColumn" Width="SizeToHeader" Header="National Number" Binding="{Binding NationalNumber}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </StackPanel>
+
+    </Grid>
+</Window>

@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OthersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Others.dbo.ElectionCenter' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ElectionCenter">
+          <Key>
+            <PropertyRef Name="GovernateID" />
+            <PropertyRef Name="MunicipalID" />
+            <PropertyRef Name="ElectionDepartmentID" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="GovernateID" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="MunicipalID" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="ElectionDepartmentID" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="ID" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Others.dbo.ElectionDepartment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ElectionDepartment">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="GovernateID" />
+            <PropertyRef Name="MunicipalID" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="ID" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="GovernateID" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="MunicipalID" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Others.dbo.Electors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Electors">
+          <Key>
+            <PropertyRef Name="NationalNo" />
+          </Key>
+          <Property Name="NationalNo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="1" />
+          <Property Name="BirthDate" Type="datetime" />
+          <Property Name="GovernateName" Type="nvarchar" MaxLength="15" />
+          <Property Name="MunicipalName" Type="nvarchar" MaxLength="45" />
+          <Property Name="ElectionDepartmentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ElectionCenterName" Type="nvarchar" MaxLength="100" />
+          <Property Name="GovernateID" Type="nvarchar" MaxLength="2" />
+          <Property Name="MunicipalID" Type="nvarchar" MaxLength="2" />
+          <Property Name="ElectionDepartmentID" Type="nvarchar" MaxLength="2" />
+          <Property Name="ElectionCenterID" Type="nvarchar" MaxLength="3" />
+          <Property Name="Age" Type="tinyint" />
+          <Property Name="Voted" Type="bit" />
+          <Property Name="VotedCount" Type="smallint" />
+          <Property Name="Photo" Type="image" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Others.dbo.Governate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Governate">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="ID" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Others.dbo.Municipal' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Municipal">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="GovernateID" />
+          </Key>
+          <Property Name="ID" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="GovernateID" Type="char" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="OthersModelStoreContainer">
+          <EntitySet Name="ElectionCenter" EntityType="Self.ElectionCenter" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ElectionCenter].[GovernateID] AS [GovernateID], 
+    [ElectionCenter].[MunicipalID] AS [MunicipalID], 
+    [ElectionCenter].[ElectionDepartmentID] AS [ElectionDepartmentID], 
+    [ElectionCenter].[ID] AS [ID], 
+    [ElectionCenter].[Name] AS [Name]
+    FROM [dbo].[ElectionCenter] AS [ElectionCenter]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ElectionDepartment" EntityType="Self.ElectionDepartment" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ElectionDepartment].[ID] AS [ID], 
+    [ElectionDepartment].[GovernateID] AS [GovernateID], 
+    [ElectionDepartment].[MunicipalID] AS [MunicipalID], 
+    [ElectionDepartment].[Name] AS [Name]
+    FROM [dbo].[ElectionDepartment] AS [ElectionDepartment]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Electors" EntityType="Self.Electors" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Electors].[NationalNo] AS [NationalNo], 
+    [Electors].[Name] AS [Name], 
+    [Electors].[Gender] AS [Gender], 
+    [Electors].[BirthDate] AS [BirthDate], 
+    [Electors].[GovernateName] AS [GovernateName], 
+    [Electors].[MunicipalName] AS [MunicipalName], 
+    [Electors].[ElectionDepartmentName] AS [ElectionDepartmentName], 
+    [Electors].[ElectionCenterName] AS [ElectionCenterName], 
+    [Electors].[GovernateID] AS [GovernateID], 
+    [Electors].[MunicipalID] AS [MunicipalID], 
+    [Electors].[ElectionDepartmentID] AS [ElectionDepartmentID], 
+    [Electors].[ElectionCenterID] AS [ElectionCenterID], 
+    [Electors].[Age] AS [Age], 
+    [Electors].[Voted] AS [Voted], 
+    [Electors].[VotedCount] AS [VotedCount], 
+    [Electors].[Photo] AS [Photo]
+    FROM [dbo].[Electors] AS [Electors]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Governate" EntityType="Self.Governate" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Governate].[ID] AS [ID], 
+    [Governate].[Name] AS [Name]
+    FROM [dbo].[Governate] AS [Governate]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Municipal" EntityType="Self.Municipal" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Municipal].[ID] AS [ID], 
+    [Municipal].[Name] AS [Name], 
+    [Municipal].[GovernateID] AS [GovernateID]
+    FROM [dbo].[Municipal] AS [Municipal]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OthersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ElectionCenter">
+          <Key>
+            <PropertyRef Name="GovernateID" />
+            <PropertyRef Name="MunicipalID" />
+            <PropertyRef Name="ElectionDepartmentID" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="GovernateID" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MunicipalID" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ElectionDepartmentID" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ElectionDepartment">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="GovernateID" />
+            <PropertyRef Name="MunicipalID" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="GovernateID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MunicipalID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Elector">
+          <Key>
+            <PropertyRef Name="NationalNo" />
+          </Key>
+          <Property Name="NationalNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="3" />
+          <Property Name="GovernateName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="MunicipalName" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="ElectionDepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ElectionCenterName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GovernateID" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="MunicipalID" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="ElectionDepartmentID" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="ElectionCenterID" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Byte" />
+          <Property Name="Voted" Type="Boolean" />
+          <Property Name="VotedCount" Type="Int16" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Governate">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Municipal">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="GovernateID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GovernateID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="OthersEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ElectionCenters" EntityType="Self.ElectionCenter" />
+          <EntitySet Name="ElectionDepartments" EntityType="Self.ElectionDepartment" />
+          <EntitySet Name="Electors" EntityType="Self.Elector" />
+          <EntitySet Name="Governates" EntityType="Self.Governate" />
+          <EntitySet Name="Municipals" EntityType="Self.Municipal" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OthersModelStoreContainer" CdmEntityContainer="OthersEntities">
+          <EntitySetMapping Name="ElectionCenters">
+            <EntityTypeMapping TypeName="OthersModel.ElectionCenter">
+              <MappingFragment StoreEntitySet="ElectionCenter">
+                <ScalarProperty Name="GovernateID" ColumnName="GovernateID" />
+                <ScalarProperty Name="MunicipalID" ColumnName="MunicipalID" />
+                <ScalarProperty Name="ElectionDepartmentID" ColumnName="ElectionDepartmentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ElectionDepartments">
+            <EntityTypeMapping TypeName="OthersModel.ElectionDepartment">
+              <MappingFragment StoreEntitySet="ElectionDepartment">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GovernateID" ColumnName="GovernateID" />
+                <ScalarProperty Name="MunicipalID" ColumnName="MunicipalID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Electors">
+            <EntityTypeMapping TypeName="OthersModel.Elector">
+              <MappingFragment StoreEntitySet="Electors">
+                <ScalarProperty Name="NationalNo" ColumnName="NationalNo" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="GovernateName" ColumnName="GovernateName" />
+                <ScalarProperty Name="MunicipalName" ColumnName="MunicipalName" />
+                <ScalarProperty Name="ElectionDepartmentName" ColumnName="ElectionDepartmentName" />
+                <ScalarProperty Name="ElectionCenterName" ColumnName="ElectionCenterName" />
+                <ScalarProperty Name="GovernateID" ColumnName="GovernateID" />
+                <ScalarProperty Name="MunicipalID" ColumnName="MunicipalID" />
+                <ScalarProperty Name="ElectionDepartmentID" ColumnName="ElectionDepartmentID" />
+                <ScalarProperty Name="ElectionCenterID" ColumnName="ElectionCenterID" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Voted" ColumnName="Voted" />
+                <ScalarProperty Name="VotedCount" ColumnName="VotedCount" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Governates">
+            <EntityTypeMapping TypeName="OthersModel.Governate">
+              <MappingFragment StoreEntitySet="Governate">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Municipals">
+            <EntityTypeMapping TypeName="OthersModel.Municipal">
+              <MappingFragment StoreEntitySet="Municipal">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GovernateID" ColumnName="GovernateID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

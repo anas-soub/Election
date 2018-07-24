@@ -1,0 +1,93 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ElctionWPF"
+        xmlns:ElectionDb="clr-namespace:ElectionDb;assembly=ElectionDb"
+        x:Class="ElctionWPF.Window1"
+        mc:Ignorable="d"
+         Name="window"
+        Title="Elction" FlowDirection="RightToLeft"  WindowState="Maximized"  Loaded="window_Loaded">
+    <Window.Resources>
+        <SolidColorBrush x:Key="borderBrush1" Color="#FFC98484" />
+        <Thickness x:Key="Thickness1">2</Thickness>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Height="80"  >
+            <Border BorderBrush="{DynamicResource borderBrush1}" BorderThickness="{DynamicResource Thickness1}">
+                <StackPanel>
+                    <Label Content="الاسم"  HorizontalAlignment="Left" Margin="3"  VerticalAlignment="Center"/>
+
+                    <TextBox Text="{Binding CurrentSearch.Name, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2"  VerticalAlignment="Center" Width="120" />
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="{DynamicResource borderBrush1}" BorderThickness="{DynamicResource Thickness1}">
+                <StackPanel>
+                    <Label Content="الجنس" HorizontalAlignment="Left" Margin="3"  VerticalAlignment="Center"/>
+                    <ComboBox  Height="25" ItemsSource="{Binding CurrentSearch.Gender, Converter={ElectionDb:EnumToCollectionConverter}, Mode=OneTime}"
+                    SelectedValuePath="Value"
+                    DisplayMemberPath="Description"
+                     SelectedValue="{Binding  CurrentSearch.Gender, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="{DynamicResource borderBrush1}" BorderThickness="{DynamicResource Thickness1}">
+                <StackPanel>
+                    <Label Content="Governate:"  HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+
+                    <!--<TextBox x:Name="governateTextBox"  HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding Governate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>-->
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="{DynamicResource borderBrush1}" BorderThickness="{DynamicResource Thickness1}">
+                <StackPanel>
+                    <Label Content="Order By Age:" HorizontalAlignment="Left" Margin="3"  VerticalAlignment="Center"/>
+                    <!--<CheckBox x:Name="orderByAgeCheckBox" Content="" Grid.Column="1" HorizontalAlignment="Left" IsChecked="{Binding OrderByAge, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>-->
+                </StackPanel>
+            </Border>
+            <Button Margin=" 20,45,10,10"  Click="Button_Click">Search</Button>
+            <Border BorderBrush="{DynamicResource borderBrush1}" BorderThickness="{DynamicResource Thickness1}">
+                <StackPanel>
+                    <Label FlowDirection="LeftToRight" Content="{Binding SearchInfo}" Margin=" 20,45,10,10"  />
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+       
+
+        <StackPanel  Grid.Row="1" Orientation="Horizontal">
+            <Grid x:Name="grid1"  HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+
+                </Grid.RowDefinitions>
+                <Image  Grid.Column="0"  HorizontalAlignment="Left" Height="350" Width="250" Margin="3" Grid.Row="0" Source="{Binding PersonDetails.Image}" VerticalAlignment="Center"/>
+                <Label  Grid.Column="0" HorizontalAlignment="Left" Height="35" Margin="3" Grid.Row="1" Content="{Binding PersonDetails.Name, Mode=OneWay}" VerticalAlignment="Center"/>
+                <Label Grid.Column="0" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Content="{Binding PersonDetails.Age, Mode=OneWay}" VerticalAlignment="Center" Width="120"/>
+
+
+            </Grid>
+
+            <DataGrid x:Name="personDataGrid" SelectedItem="{Binding Path=Person }" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="10,10,10,10" ItemsSource="{Binding Path=CurrentPersonsList }" EnableRowVirtualization="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn x:Name="nameColumn" Header="Name" Binding="{Binding Name}" CanUserResize="True" Width="Auto"/>
+                    <DataGridTextColumn x:Name="municipalNameColumn" Width="SizeToHeader"  Header="Municipal Name" Binding="{Binding MunicipalName}"/>
+                    <DataGridTextColumn x:Name="dateOfBirth" Width="SizeToHeader" Header="dateOfBirth"  Binding="{Binding dateOfBirth}"/>
+
+                    <DataGridTextColumn x:Name="nationalNumberColumn" Width="SizeToHeader" Header="National Number" Binding="{Binding NationalNumber}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+    </Grid>
+</Window>
